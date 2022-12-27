@@ -1,0 +1,28 @@
+@import '../../../../styles/variables/variables.sass'
+
+.sortPanel
+    // background: red
+    display: flex
+    flex-direction: column
+    align-items: center
+    justify-content: center
+    height: 100%
+    &__item
+        margin-bottom: 1rem
+        cursor: pointer
+        padding: 1rem
+        background: $grey-nearDark
+        border: 1px solid $grey-btn-dark
+        border-radius: 10%
+        &:hover
+            border: 1px solid $grey-nearDark
+            background: $grey-dark
+        &_active
+            border: 1px solid $grey-btn
+            background: $grey-dark
+    &__icon
+        color: #7D859C
+        &:hover
+            color: $grey-light
+        &_active
+            color: $grey-light
