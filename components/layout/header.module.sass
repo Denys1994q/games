@@ -6,24 +6,19 @@
     background: $grey-nearDark
     box-shadow: 2px 1px 7px rgba(0, 0, 0, 0.08), 0px 2px 1px -1px rgba(0, 0, 0, 0.04), 0px 1px 3px rgba(0, 0, 0, 0.12)
     text-shadow: 1px 1px 1px rgb(0 0 0 / 30%)
-    padding: 1rem
+    padding: .7rem
     margin-bottom: 1rem
     &__nav
     &__list
         display: flex
         justify-content: end
         font-size: 1.6rem
-        &Item
+        &Item a
             margin-right: 3rem
             display: flex
             justify-content: center
             align-items: center
     &__searchIcon
-        padding: .5rem
-        width: 3.5rem
-        height: 3.5rem
-        border: 1px solid #5c5c5c
         transition: all .4s ease
-        background: #424242
         &:hover
-            background: #e7e7e7
+            color: $grey-btn-light

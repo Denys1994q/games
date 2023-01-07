@@ -1,6 +1,7 @@
-import { Dispatch, SetStateAction } from "react"
+import {Dispatch, SetStateAction} from 'react'
 
 export interface ISelect {
-    setGamesPerPage: Dispatch<SetStateAction<number>>,
-    options: number[]
+    changeAction?: (e: React.ChangeEvent<HTMLSelectElement>) => void,
+    options: number[] | string[]
 }
+

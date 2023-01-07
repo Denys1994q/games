@@ -1,6 +1,6 @@
 import styles from "./Main.module.sass";
 
-import { useEffect, useState, Dispatch, SetStateAction } from "react";
+import { useEffect, useState } from "react";
 import { useHttp } from "../../../hooks/http.hook";
 
 import { Platform } from "../../layout/btns/Btns.props";
@@ -16,28 +16,42 @@ export interface IShowGames {
     index: number;
 }
 
+interface MainPageProps {
+    games: [];
+}
+
 // назвати Main і можливо перенести частину розмітки в новий компонент Main__list
-const Main = (): JSX.Element => {
+// тільки pс передати, бо це перша загрузка
+const Main = ({ games }: MainPageProps): JSX.Element => {
     const { request } = useHttp();
 
-    const [gamesArr, setGamesArr]: [[], Dispatch<SetStateAction<[]>>] = useState([]); // any!!!!!
-    const [activeBtn, setActiveBtn]: any = useState(null); // any!!!!!
-    const [loading, setLoading] = useState(false);
-    const [error, setError] = useState(false);
+    const [gamesArr, setGamesArr] = useState<[]>([]);
+    const [activeBtn, setActiveBtn] = useState<number>(0);
+    const [loading, setLoading] = useState<boolean>(false);
+    const [error, setError] = useState<boolean>(false);
     // pagination
-    const [start, setStart] = useState(0);
-    const [gamesPerPage, setGamesPerPage] = useState(20);
+    const [start, setStart] = useState<number>(0);
+    const startOptions: number[] = [20, 40];
+    const [gamesPerPage, setGamesPerPage] = useState(startOptions[0]);
+    const [divider, setDivider] = useState(5);
+    // яка сторінка зараз активна, потрібно для divider
+    const [activeIndex, setActiveIndex] = useState(0);
 
     useEffect(() => {
-        showGames({ platform: Platform.PC, index: 0 });
+        // showGames({ platform: Platform.PC, index: 0 });
+        setGamesArr(games);
     }, []);
 
     // запит до API за списком ігор
     const showGames = ({ platform, index }: IShowGames): void => {
         setLoading(true);
         setActiveBtn(index);
-        // видалив, не пам'ятаю, що робить
-        // setStart(0);
+
+        // коли перехід з кнопки PC на кнопку Browser, скидаємо всі налаштування сторінок на початкові
+        setStart(0);
+        setActiveIndex(0);
+        setDivider(5);
+
         request(`https://free-to-play-games-database.p.rapidapi.com/api/games?platform=${platform}`, "GET", null, {
             "X-RapidAPI-Key": "660acd6f64msh16b15f2e86fab3ep160cf2jsn20fce72e0ccb",
             "X-RapidAPI-Host": "free-to-play-games-database.p.rapidapi.com",
@@ -52,61 +66,74 @@ const Main = (): JSX.Element => {
         setGamesArr(response);
     };
 
-    const [activeIndex, setActiveIndex] = useState(0);
     // попередня сторінка з іграми
+    // start + gamesPerPage !== 0
     const showPrevPage = () => {
-        // в обох проблема з крайніми, по кліку відбувається дія, хоч і не показується
+        // якщо активна сторінка не перша, значить можна мінусувати сторінку
         if (activeIndex > 0) {
+            // мінусуємо сторінку в списку сторінок
             setActiveIndex(index => index - 1);
-        }
-        // відняти 5, якщо сторінка
-        if (activeIndex === divider - 5 && start + gamesPerPage !== 0 && activeIndex > 0) {
-            setDivider(divider => divider - 5);
-        }
-        if (start !== 0) {
+            // мінусуємо сторінку у верстці
             setStart(start => start - gamesPerPage);
+        }
+        // якщо активна сторінка перша з блоку з 5, які показуються && якщо активна сторінка не перша загалом з усього списку
+        if (activeIndex === divider - 5 && activeIndex > 0) {
+            setDivider(divider => divider - 5);
         }
     };
     // наступна сторінка з іграми
-
     const showNextPage = () => {
+        // якщо активна сторінка не остання
         if (activeIndex + 1 < gamesArr.length / gamesPerPage) {
+            // плюсуємо сторінку в списку сторінок
             setActiveIndex(index => index + 1);
-        }
-
-        if (activeIndex === divider - 1 && start + gamesPerPage < gamesArr.length) {
-            setDivider(divider => divider + 5);
-        }
-        if (start + gamesPerPage < gamesArr.length) {
             setStart(start => start + gamesPerPage);
         }
+        // якщо активна сторінка остання з блоку з 5, які показуються && якщо активна сторінка не остання загалом з усього списку
+        if (activeIndex === divider - 1 && activeIndex + 1 < gamesArr.length / gamesPerPage) {
+            setDivider(divider => divider + 5);
+        }
     };
-    // якщо остання сторінка в масиві сторінок, далі не йде
     // показуємо ту сторінку, по якій клікнув користувач
-    const [divider, setDivider] = useState(5);
     const showChosenPage = (pageNumber: number) => {
         setActiveIndex(pageNumber);
         setStart(start => gamesPerPage * pageNumber);
     };
 
+    const setNumOfGamesOnPage = (e: React.ChangeEvent<HTMLSelectElement>) => {
+        setGamesPerPage(+e.target.value);
+        // показуємо з першої сторінки, скидаємо всі показники при зміни селекту
+        setStart(0);
+        setActiveIndex(0);
+        setDivider(5);
+    };
+
+    const [activeIconIndex, setActiveIconIndex] = useState(null);
+
     return (
         <>
             <div className={styles.main__left}>
-                {gamesArr && gamesArr.length > 0 ? <SortPanel setGamesArr={setGamesArr} showGames={showGames} /> : null}
+                {gamesArr && gamesArr.length > 0 ? (
+                    <SortPanel
+                        activeBtn={activeBtn}
+                        setGamesArr={setGamesArr}
+                        showGames={showGames}
+                        activeIconIndex={activeIconIndex}
+                        setActiveIconIndex={setActiveIconIndex}
+                    />
+                ) : null}
             </div>
             <div className={styles.main__right}>
                 <div className={styles.gameTypes}>
                     <div>
-                        <Btns showGames={showGames} activeBtn={activeBtn} />
+                        <Btns showGames={showGames} activeBtn={activeBtn} setActiveIconIndex={setActiveIconIndex} />
                     </div>
-                    <Select options={[20, 40]} setGamesPerPage={setGamesPerPage} />
+                    <Select options={startOptions} changeAction={setNumOfGamesOnPage} />
                 </div>
                 {!error ? (
-                    <>
-                        <ul className={styles.gameList}>
-                            <GameCard games={gamesArr} loading={loading} start={start} offset={gamesPerPage} />
-                        </ul>
-                    </>
+                    <ul className={styles.gameList}>
+                        <GameCard games={gamesArr} loading={loading} start={start} offset={gamesPerPage} />
+                    </ul>
                 ) : (
                     "Sorry, service unavailable..."
                 )}

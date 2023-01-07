@@ -1,4 +1,4 @@
-import styles from "./pagination.module.sass";
+import styles from "./Pagination.module.sass";
 import cn from "classnames";
 
 import { useState } from "react";
@@ -7,23 +7,22 @@ import { faChevronLeft, faChevronRight } from "@fortawesome/free-solid-svg-icons
 
 import { PaginationProps } from "../pagination/Pagination.props";
 
-// пагінація - по gamesPerPage пропозицій робіт на одній сторінці
 const PagesPanel = ({
+    // рух по створених сторінках: +-, 0 +-
     start,
+    // к-ість ігор на одній сторінці: 20
     gamesPerPage,
+    // список ігор: 105
     games,
+    // показувати попередню сторінку
     showPrevPage,
+    // показувати наступну сторінку
     showNextPage,
+    // показувати вибрану сторінку (коли юзер клікнув на номер сторінки)
     showChosenPage,
+    // скільки зі створених сторінок показується юзеру, наприклад по 5. Коли start доходить до крайнього значення, divider зростає і показуються наступні 5 сторінок
     divider,
 }: PaginationProps) => {
-    // індекс активної сторінки, розділювач - по скільки сторінок, стале число, межа - останнє число, яке показується. Якщо індекс > межа, межа зростає на розділювач. Основне правило: все, що до межі - 5 не показується.
-    // показувати ті, що менше розділювача. Якщо індекс стає більше розділювача, то всі до нього зникають, а наступні 5 показуються
-    // всього сторінок 22. Індекс активної сторінки - 8. Розділювач 5. Межа - Індекс активної сторінки - розділювач. Коли я стану на 6 сторінку, все, що до 6 дісплей нан, все, що 6 + 5 показується.
-
-    // divider зростає на 5, все що перед ним зникає, крім divider - 5
-    // коли клацає на index > divider divider збільшується на 5.
-
     const showPagesNumbers =
         games && games.length > 0
             ? games.map((item: any, index: number) => {

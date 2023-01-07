@@ -1,17 +1,33 @@
-import styles from "./header.module.sass";
+import styles from "./Header.module.sass";
+import Link from "next/link";
 
-const Header = (props: any) => {
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faSearch, faHome } from "@fortawesome/free-solid-svg-icons";
+
+const Header = (): JSX.Element => {
     return (
         <header className={styles.header}>
             <nav className={styles.header__nav}>
                 <ul className={styles.header__list}>
-                    <li className={styles.header__listItem}>
-                        <a href='#'>
-                            <img className={styles.header__searchIcon} src='./search-icon.webp' alt='search-icon' />
-                        </a>
+                <li className={styles.header__listItem}>
+                        <Link href='/'>
+                            <FontAwesomeIcon
+                                icon={faHome}
+                                size='xl'
+                                style={{ width: 20 }}
+                                className={styles.header__searchIcon}
+                            />
+                        </Link>
                     </li>
                     <li className={styles.header__listItem}>
-                        <a href='#'>Log In</a>
+                        <Link href='/search'>
+                            <FontAwesomeIcon
+                                icon={faSearch}
+                                size='xl'
+                                style={{ width: 20 }}
+                                className={styles.header__searchIcon}
+                            />
+                        </Link>
                     </li>
                 </ul>
             </nav>

@@ -1,0 +1,81 @@
+@import './variables/variables.sass'
+@import './mixins/mixins.sass'
+
+.game
+    color: $grey-btn-light
+    display: flex
+    flex-wrap: wrap
+    border: 1px solid $grey-btn-dark
+    border-radius: .5rem
+    background: rgb(30,61,66)
+    background: linear-gradient(90deg, rgba(30,61,66,1) 58%, rgba(47,102,113,1) 84%)
+.image
+    width: 41rem
+    height: 25rem
+    margin-top: 1rem
+    margin-right: 2rem
+    position: sticky
+    top: 1rem
+    @include respond(tab-land)
+        position: static
+        width: 60%
+        height: auto
+    @include respond(phoneL)
+        width: 100%
+    img
+        width: 41rem
+        height: 20rem
+        object-fit: contain
+        margin-bottom: 1rem
+        @include respond(tab-land)
+            width: 100%
+            height: auto
+.info
+    width: 70rem
+    padding: .5rem
+    @include respond(tab-port)
+        width: 100%
+.title
+    font-size: 3rem
+    margin-bottom: 1rem
+.subtitleBlock
+    font-size: 1.6rem
+    margin-bottom: 3rem
+.subtitleName
+    font-size: 2.2rem
+    margin-bottom: 1rem
+    border-bottom: 1px solid $grey-light
+.infoBlock
+    font-size: 1.6rem
+    display: flex
+    flex-wrap: wrap
+.infoItem
+    font-size: 1.6rem
+    &:not(:last-child)
+        margin-right: 5rem
+    span
+        color: $grey-light
+    p
+        margin: .5rem 0
+.readMore
+    color: $grey-btn
+    cursor: pointer
+    &:hover
+        color: #a1a1a1
+.fullDescription
+    display: none
+    // opacity: 0
+    // transition: all 2s ease
+.description__active
+    // opacity: 1
+    display: block
+    // transition: all 2s ease
+.slider__image
+    width: 95%
+    @include respond(phoneXL)
+        margin: 0 auto
+.status
+    text-align: center
+// .fd
+//     background: red
+//     width: 100%

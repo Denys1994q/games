@@ -10,12 +10,12 @@ const font = Oswald({ weight: ["400", "600"], subsets: ["latin"] });
 
 export default function App({ Component, pageProps }: AppProps) {
     return (
-        <>
+        <div className='wrapper'>
             <Header />
             <div className={font.className + " " + "container"}>
                 <Component {...pageProps} />
             </div>
             <Footer />
-        </>
+        </div>
     );
 }

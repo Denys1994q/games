@@ -2,12 +2,30 @@ import Head from "next/head";
 // import Image from "next/image";
 import styles from "../styles/Home.module.sass";
 
-import SortPanel from "../components/pages/main/sortPanel/Main_sortPanel";
-import Main_List from "../components/pages/main/Main";
+import Main from "../components/pages/main/Main";
 import { useState } from "react";
 
+import { useHttp } from "../hooks/http.hook";
+
+export const getServerSideProps = async () => {
+    const options = {
+        method: "GET",
+        headers: {
+            "X-RapidAPI-Key": "660acd6f64msh16b15f2e86fab3ep160cf2jsn20fce72e0ccb",
+            "X-RapidAPI-Host": "free-to-play-games-database.p.rapidapi.com",
+        },
+    };
+
+    const res = await fetch("https://free-to-play-games-database.p.rapidapi.com/api/games?platform=pc", options);
+    const data = await res.json();
+
+    return {
+        props: { games: data },
+    };
+};
+
 // кусок коду вкинути в мейнліст і стилі не забути
-export default function Home() {
+export default function Home({ games }: any) {
     return (
         <>
             <Head>
@@ -17,7 +35,8 @@ export default function Home() {
                 <link rel='icon' href='/favicon.ico' />
             </Head>
             <main className={styles.main}>
-                <Main_List />
+                {/* <p>{games[12].id}</p> */}
+                <Main games={games} />
             </main>
         </>
     );

@@ -10,10 +10,8 @@ import { ISortProps } from "./Main_sortPanel.props";
 import { Platform } from "../../../layout/btns/Btns.props";
 
 // помилку обробити
-const SortPanel = ({ setGamesArr, showGames }: ISortProps): JSX.Element => {
+const SortPanel = ({activeIconIndex, setActiveIconIndex, activeBtn, setGamesArr, showGames }: ISortProps): JSX.Element => {
     const { request } = useHttp();
-
-    const [activeIconIndex, setActiveIconIndex] = useState(null);
 
     const icons = [faCalendarAlt, faSortAlphaAsc, faSortAmountAsc];
 
@@ -37,10 +35,16 @@ const SortPanel = ({ setGamesArr, showGames }: ISortProps): JSX.Element => {
     });
 
     const fetchSortedGames = (type: string) => {
-        request(`https://free-to-play-games-database.p.rapidapi.com/api/games?sort-by=${type}`, "GET", null, {
-            "X-RapidAPI-Key": "660acd6f64msh16b15f2e86fab3ep160cf2jsn20fce72e0ccb",
-            "X-RapidAPI-Host": "free-to-play-games-database.p.rapidapi.com",
-        })
+        const platform = activeBtn === 0 ? "pc" : "browser";
+        request(
+            `https://free-to-play-games-database.p.rapidapi.com/api/games?sort-by=${type}&platform=${platform}`,
+            "GET",
+            null,
+            {
+                "X-RapidAPI-Key": "660acd6f64msh16b15f2e86fab3ep160cf2jsn20fce72e0ccb",
+                "X-RapidAPI-Host": "free-to-play-games-database.p.rapidapi.com",
+            }
+        )
             .then(response => setGamesArr(response))
             .catch(er => console.log(er));
     };
@@ -63,8 +67,9 @@ const SortPanel = ({ setGamesArr, showGames }: ISortProps): JSX.Element => {
         }
         // якщо клік на вже вибраному типі сортування, то всі типи стають не активні і завантажуються дані несортовані
         if (index === activeIconIndex) {
+            const platform = activeBtn === 0 ? Platform.PC : Platform.BROWSER;
             setActiveIconIndex(null);
-            showGames({ platform: Platform.PC, index: 0 });
+            showGames({ platform: platform, index: activeBtn });
         }
     };
 

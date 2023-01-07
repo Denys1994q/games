@@ -1,7 +1,7 @@
-import styles from "./footer.module.sass";
+import styles from "./Footer.module.sass";
 
-const Footer = (props: any) => {
-    return <footer className={styles.footer}>all rights reserved</footer>;
+const Footer = (): JSX.Element => {
+    return <footer className={styles.footer}>© all rights reserved</footer>;
 };
 
 export default Footer;

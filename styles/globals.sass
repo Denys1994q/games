@@ -9,9 +9,9 @@
 input:focus
   outline: none
 
-// h2
-//   margin: 0
-//   padding: 0
+h1, h2, h3, h4, h5
+  margin: 0
+  padding: 0
 
 html
   font-size: 62.5%
@@ -26,16 +26,17 @@ img
 a
   text-decoration: none
   border: none
-  color: inherit
+  color: #fff
 a:hover
-  color: inherit
+  color: #fff
   text-decoration: none
 a:visited
-  color: inherit
+  color: #fff
 a:active
-  color: inherit
+  color: #fff
   text-decoration: none
 a:focus
+  color: #fff
   text-decoration: none
 
 button,input,optgroup,select,textarea
@@ -53,8 +54,26 @@ p, ul
 ul
   list-style: none
 
+.wrapper
+  display: flex
+  flex-direction: column
+  min-height: 100vh
+
 .container
   max-width: 120rem
   margin: 0 auto
+  flex: 1
   @include respond(tab-port)
     width: 100%
+
+// slick-slider 
+.slick-dots li button::before
+  color: #fff !important
+  font-size: 1rem !important
+.slick-prev
+  @include respond(tab-port)
+    left: 0 !important
+    z-index: 1 !important
+.slick-next
+  @include respond(tab-port)
+    right: 0 !important

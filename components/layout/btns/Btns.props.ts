@@ -15,6 +15,7 @@ interface IShowGames {
 }
 
 export interface btnsProps {
-    activeBtn: number;
+    activeBtn: number | null;
+    setActiveIconIndex: any,
     showGames: ({ platform, index }: IShowGames) => void
 }
