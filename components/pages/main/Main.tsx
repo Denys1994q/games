@@ -17,12 +17,14 @@ export interface IShowGames {
 }
 
 interface MainPageProps {
-    games: [];
+    prerenderedGames: [];
+    prerenderError: boolean;
 }
 
 // назвати Main і можливо перенести частину розмітки в новий компонент Main__list
-// тільки pс передати, бо це перша загрузка
-const Main = ({ games }: MainPageProps): JSX.Element => {
+
+// пререндерені ігри відразу відмальовуються на сторінці.
+const Main = ({ prerenderedGames, prerenderError }: MainPageProps): JSX.Element => {
     const { request } = useHttp();
 
     const [gamesArr, setGamesArr] = useState<[]>([]);
@@ -38,8 +40,7 @@ const Main = ({ games }: MainPageProps): JSX.Element => {
     const [activeIndex, setActiveIndex] = useState(0);
 
     useEffect(() => {
-        // showGames({ platform: Platform.PC, index: 0 });
-        setGamesArr(games);
+        setGamesArr(prerenderedGames);
     }, []);
 
     // запит до API за списком ігор
@@ -130,7 +131,7 @@ const Main = ({ games }: MainPageProps): JSX.Element => {
                     </div>
                     <Select options={startOptions} changeAction={setNumOfGamesOnPage} />
                 </div>
-                {!error ? (
+                {!error || !prerenderError ? (
                     <ul className={styles.gameList}>
                         <GameCard games={gamesArr} loading={loading} start={start} offset={gamesPerPage} />
                     </ul>

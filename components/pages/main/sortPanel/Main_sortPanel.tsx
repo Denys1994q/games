@@ -10,7 +10,13 @@ import { ISortProps } from "./Main_sortPanel.props";
 import { Platform } from "../../../layout/btns/Btns.props";
 
 // помилку обробити
-const SortPanel = ({activeIconIndex, setActiveIconIndex, activeBtn, setGamesArr, showGames }: ISortProps): JSX.Element => {
+const SortPanel = ({
+    activeIconIndex,
+    setActiveIconIndex,
+    activeBtn,
+    setGamesArr,
+    showGames,
+}: ISortProps): JSX.Element => {
     const { request } = useHttp();
 
     const icons = [faCalendarAlt, faSortAlphaAsc, faSortAmountAsc];
@@ -18,6 +24,7 @@ const SortPanel = ({activeIconIndex, setActiveIconIndex, activeBtn, setGamesArr,
     const contentIcons = icons.map((item, index) => {
         return (
             <li
+                key={index}
                 onClick={() => sortGames(index)}
                 className={cn(styles.sortPanel__item, {
                     [styles.sortPanel__item_active]: index === activeIconIndex,

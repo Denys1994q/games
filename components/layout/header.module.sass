@@ -1,7 +1,6 @@
 @import '../../styles/variables/variables.sass'
 
 .header
-    // position: sticky
     border-bottom: 1px solid #64646499
     background: $grey-nearDark
     box-shadow: 2px 1px 7px rgba(0, 0, 0, 0.08), 0px 2px 1px -1px rgba(0, 0, 0, 0.04), 0px 1px 3px rgba(0, 0, 0, 0.12)
@@ -11,9 +10,10 @@
     &__nav
     &__list
         display: flex
-        justify-content: end
+        justify-content: flex-end
         font-size: 1.6rem
         &Item a
+            color: $grey-light
             margin-right: 3rem
             display: flex
             justify-content: center

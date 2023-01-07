@@ -7,25 +7,45 @@ import { useState } from "react";
 
 import { useHttp } from "../hooks/http.hook";
 
+// export const getServerSideProps = async () => {
+//     const options = {
+//         method: "GET",
+//         headers: {
+//             "X-RapidAPI-Key": "660acd6f64msh16b15f2e86fab3ep160cf2jsn20fce72e0ccb",
+//             "X-RapidAPI-Host": "free-to-play-games-database.p.rapidapi.com",
+//         },
+//     };
+
+//     const res = await fetch("https://free-to-play-games-database.p.rapidapi.com/api/games?platform=pc", options);
+//     const data = await res.json();
+
+//     return {
+//         props: { games: data },
+//     };
+// };
+
 export const getServerSideProps = async () => {
+    const { request } = useHttp();
+
+    let err = false;
     const options = {
-        method: "GET",
-        headers: {
-            "X-RapidAPI-Key": "660acd6f64msh16b15f2e86fab3ep160cf2jsn20fce72e0ccb",
-            "X-RapidAPI-Host": "free-to-play-games-database.p.rapidapi.com",
-        },
+        "X-RapidAPI-Key": "660acd6f64msh16b15f2e86fab3ep160cf2jsn20fce72e0ccb",
+        "X-RapidAPI-Host": "free-to-play-games-database.p.rapidapi.com",
     };
 
-    const res = await fetch("https://free-to-play-games-database.p.rapidapi.com/api/games?platform=pc", options);
-    const data = await res.json();
+    const res = await request(
+        "https://free-to-play-games-database.p.rapidapi.com/api/games?platform=pc",
+        "GET",
+        null,
+        options
+    ).catch(e => (err = true));
 
     return {
-        props: { games: data },
+        props: { games: res, error: err },
     };
 };
 
-// кусок коду вкинути в мейнліст і стилі не забути
-export default function Home({ games }: any) {
+export default function Home({ games, error }: any) {
     return (
         <>
             <Head>
@@ -35,8 +55,7 @@ export default function Home({ games }: any) {
                 <link rel='icon' href='/favicon.ico' />
             </Head>
             <main className={styles.main}>
-                {/* <p>{games[12].id}</p> */}
-                <Main games={games} />
+                <Main prerenderedGames={games} prerenderError={error} />
             </main>
         </>
     );

@@ -36,9 +36,9 @@ const SliderComponent = ({ arr, slidesToShowNum, imgClass }: ISliderComponentPro
 
     const slides =
         arr.length > 0
-            ? arr.map(item => {
+            ? arr.map((item, i) => {
                   return (
-                      <div>
+                      <div key={i}>
                           <img className={imgClass} src={item} alt='game-image' />
                       </div>
                   );
