@@ -4,7 +4,7 @@ import Image from "next/image";
 
 import ClipLoader from "react-spinners/ClipLoader";
 
-import { GamesType } from "./GameCard.props";
+import { GamesType } from "./gameCard.props";
 import Link from "next/link";
 
 const GameCard = ({ games, loading, start, offset }: GamesType): JSX.Element => {

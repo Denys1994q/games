@@ -1,6 +1,6 @@
 import styles from "../styles/Search.module.sass";
 
-import { IArrAllGames } from "../components/gameCard/GameCard.props";
+import { IArrAllGames } from "../components/gameCard/gameCard.props";
 
 import SliderComponent from "../components/slider/Slider";
 import FindInput from "../components/findInput/FindInput";
