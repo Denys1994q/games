@@ -4,7 +4,7 @@ import cn from "classnames";
 import styles from "./FindInput.module.sass";
 
 import { IFindInputProps } from "./FindInput.props";
-import { IArrAllGames } from "../gameCard/gameCard.props";
+import { IArrAllGames } from "../gameCard/GameCard.props";
 
 import GameCard from "../gameCard/GameCard";
 import Select from "../inputs/Select";

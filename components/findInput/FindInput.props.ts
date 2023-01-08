@@ -1,5 +1,5 @@
 
-import { IArrAllGames } from "../gameCard/gameCard.props";
+import { IArrAllGames } from "../gameCard/GameCard.props";
 
 export interface IFindInputProps {
     arrWithAllGames: IArrAllGames[];

@@ -3,8 +3,8 @@ import styles from "./GameCard.module.sass";
 import Image from "next/image";
 
 import ClipLoader from "react-spinners/ClipLoader";
-// props types
-import { GamesType } from "./gameCard.props";
+
+import { GamesType } from "./GameCard.props";
 import Link from "next/link";
 
 const GameCard = ({ games, loading, start, offset }: GamesType): JSX.Element => {

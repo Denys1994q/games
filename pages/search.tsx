@@ -1,29 +1,23 @@
 import styles from "../styles/Search.module.sass";
 
-import { useHttp } from "../hooks/http.hook";
-import { IArrAllGames } from "../components/gameCard/gameCard.props";
+import { IArrAllGames } from "../components/gameCard/GameCard.props";
 
 import SliderComponent from "../components/slider/Slider";
 import FindInput from "../components/findInput/FindInput";
 
 export const getServerSideProps = async () => {
-    const { request } = useHttp();
-
-    let err = false;
     const options = {
-        "X-RapidAPI-Key": "660acd6f64msh16b15f2e86fab3ep160cf2jsn20fce72e0ccb",
-        "X-RapidAPI-Host": "free-to-play-games-database.p.rapidapi.com",
+        method: "GET",
+        headers: {
+            "X-RapidAPI-Key": "660acd6f64msh16b15f2e86fab3ep160cf2jsn20fce72e0ccb",
+            "X-RapidAPI-Host": "free-to-play-games-database.p.rapidapi.com",
+        },
     };
-
-    const res = await request(
-        "https://free-to-play-games-database.p.rapidapi.com/api/games",
-        "GET",
-        null,
-        options
-    ).catch(e => (err = true));
+    const res = await fetch("https://free-to-play-games-database.p.rapidapi.com/api/games", options);
+    const res1 = await res.json();
 
     return {
-        props: { gamesFromPrerender: res, error: err },
+        props: { gamesFromPrerender: res1 },
     };
 };
 
@@ -33,7 +27,7 @@ interface ISearchPageProps {
 }
 
 // треба це більш на компоненти розбити (інпут в окремий компонент по пошуку) !!!!!!!!
-const Search = ({ gamesFromPrerender, error }: ISearchPageProps): JSX.Element => {
+const Search = ({ gamesFromPrerender }: ISearchPageProps): JSX.Element => {
     let randomNumbersArr: number[] = [];
     const getRandomGames = (arr: object[]) => {
         for (let i = 0; i < 16; i++) {
@@ -51,16 +45,10 @@ const Search = ({ gamesFromPrerender, error }: ISearchPageProps): JSX.Element =>
 
     return (
         <section className={styles.search}>
-            {!error ? (
-                <>
-                    <h2 className={styles.search__title}>You may like it</h2>
-                    <SliderComponent arr={slidesArr} slidesToShowNum={3} />
-                    <h2 className={styles.search__title}>Find</h2>
-                    <FindInput arrWithAllGames={gamesFromPrerender} />
-                </>
-            ) : (
-                <h3>Service unavailable</h3>
-            )}
+            <h2 className={styles.search__title}>You may like it</h2>
+            <SliderComponent arr={slidesArr} slidesToShowNum={3} />
+            <h2 className={styles.search__title}>Find</h2>
+            <FindInput arrWithAllGames={gamesFromPrerender} />
         </section>
     );
 };

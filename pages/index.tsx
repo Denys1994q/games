@@ -3,30 +3,25 @@ import styles from "../styles/Home.module.sass";
 
 import Main from "../components/pages/main/Main";
 
-import { useHttp } from "../hooks/http.hook";
-
 export const getStaticProps = async () => {
-    const { request } = useHttp();
-
-    let err = false;
     const options = {
-        "X-RapidAPI-Key": "660acd6f64msh16b15f2e86fab3ep160cf2jsn20fce72e0ccb",
-        "X-RapidAPI-Host": "free-to-play-games-database.p.rapidapi.com",
+        method: "GET",
+        headers: {
+            "X-RapidAPI-Key": "660acd6f64msh16b15f2e86fab3ep160cf2jsn20fce72e0ccb",
+            "X-RapidAPI-Host": "free-to-play-games-database.p.rapidapi.com",
+        },
     };
 
-    const res = await request(
-        "https://free-to-play-games-database.p.rapidapi.com/api/games?platform=pc",
-        "GET",
-        null,
-        options
-    ).catch(e => (err = true));
+    const res = await fetch("https://free-to-play-games-database.p.rapidapi.com/api/games?platform=pc", options);
+
+    const games = await res.json();
 
     return {
-        props: { games: res, error: err },
+        props: { games },
     };
 };
 
-export default function Home({ games, error }: any) {
+export default function Home({ games }: any) {
     return (
         <>
             <Head>
@@ -36,7 +31,7 @@ export default function Home({ games, error }: any) {
                 <link rel='icon' href='/favicon.ico' />
             </Head>
             <main className={styles.main}>
-                <Main prerenderedGames={games} prerenderError={error} />
+                <Main prerenderedGames={games} />
             </main>
         </>
     );

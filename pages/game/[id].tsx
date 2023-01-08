@@ -39,12 +39,17 @@ interface IGameScreenshots {
 }
 
 export const getStaticPaths = async () => {
-    const { request } = useHttp();
-    const res = await request(`https://free-to-play-games-database.p.rapidapi.com/api/games`, "GET", null, {
-        "X-RapidAPI-Key": "660acd6f64msh16b15f2e86fab3ep160cf2jsn20fce72e0ccb",
-        "X-RapidAPI-Host": "free-to-play-games-database.p.rapidapi.com",
+    const res: any = await fetch(`https://free-to-play-games-database.p.rapidapi.com/api/games`, {
+        method: "GET",
+        headers: {
+            "X-RapidAPI-Key": "660acd6f64msh16b15f2e86fab3ep160cf2jsn20fce72e0ccb",
+            "X-RapidAPI-Host": "free-to-play-games-database.p.rapidapi.com",
+        },
     });
-    const paths = res.map((game: { id: string }) => {
+
+    const res1 = await res.json();
+
+    const paths = res1.map((game: { id: string }) => {
         return {
             params: { id: game.id.toString() },
         };
@@ -57,14 +62,17 @@ export const getStaticPaths = async () => {
 
 export const getStaticProps = async (context: any) => {
     const gameId = context.params.id;
-    const { request } = useHttp();
-    const res = await request(`https://free-to-play-games-database.p.rapidapi.com/api/game?id=${gameId}`, "GET", null, {
-        "X-RapidAPI-Key": "660acd6f64msh16b15f2e86fab3ep160cf2jsn20fce72e0ccb",
-        "X-RapidAPI-Host": "free-to-play-games-database.p.rapidapi.com",
+    const res = await fetch(`https://free-to-play-games-database.p.rapidapi.com/api/game?id=${gameId}`, {
+        method: "GET",
+        headers: {
+            "X-RapidAPI-Key": "660acd6f64msh16b15f2e86fab3ep160cf2jsn20fce72e0ccb",
+            "X-RapidAPI-Host": "free-to-play-games-database.p.rapidapi.com",
+        },
     });
+    const res1 = await res.json();
     return {
         props: {
-            gameCard: res,
+            gameCard: res1,
         },
     };
 };
