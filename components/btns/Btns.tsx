@@ -1,4 +1,4 @@
-import styles from "./btns.module.sass";
+import styles from "./Btns.module.sass";
 
 import cn from "classnames";
 

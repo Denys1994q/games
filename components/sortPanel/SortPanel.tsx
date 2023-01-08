@@ -1,13 +1,12 @@
-import styles from "./Main_sortPanel.module.sass";
+import styles from "./SortPanel.module.sass";
 import cn from "classnames";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCalendarAlt, faSortAlphaAsc, faSortAmountAsc } from "@fortawesome/free-solid-svg-icons";
-import { useEffect, useState } from "react";
 
-import { useHttp } from "../../../../hooks/http.hook";
-import { ISortProps } from "./Main_sortPanel.props";
-import { Platform } from "../../../layout/btns/Btns.props";
+import { useHttp } from "../../hooks/http.hook";
+import { ISortProps } from "./sortPanel.props";
+import { Platform } from "../btns/Btns.props";
 
 // помилку обробити
 const SortPanel = ({

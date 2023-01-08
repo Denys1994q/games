@@ -1,12 +1,11 @@
 import styles from "../styles/Search.module.sass";
 
 import { useHttp } from "../hooks/http.hook";
-import { IArrAllGames } from "../components/pages/main/gameCard/Main_gameCard.props";
+import { IArrAllGames } from "../components/gameCard/gameCard.props";
 
-import SliderComponent from "../components/common/slider/Slider";
-import FindInput from "../components/pages/search/FindInput/FindInput";
+import SliderComponent from "../components/slider/Slider";
+import FindInput from "../components/findInput/FindInput";
 
-// user?.name - так ставити. Означає, якщо є така властивість
 export const getServerSideProps = async () => {
     const { request } = useHttp();
 
@@ -23,10 +22,6 @@ export const getServerSideProps = async () => {
         options
     ).catch(e => (err = true));
 
-    // if (!res.ok) {
-    //     err = true;
-    // }
-    // const data = await res.json();
     return {
         props: { gamesFromPrerender: res, error: err },
     };

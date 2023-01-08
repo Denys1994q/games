@@ -1,10 +1,3 @@
-// interface HeadersType {
-//     "Content-Type": string,
-//     "X-RapidAPI-Key"?: string,
-//     "X-RapidAPI-Host"?: string
-
-// }
-
 export const useHttp = () => {
     const request = async (url: string, method = "GET", body = null, headers: any = { "Content-Type": "application/json" }) => {
         try {

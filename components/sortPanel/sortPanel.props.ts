@@ -1,5 +1,5 @@
 import {Dispatch, SetStateAction} from 'react'
-import {IShowGames} from '../Main'
+import {IShowGames} from '../pages/main/Main'
 
 export interface ISortProps {
     activeIconIndex: number | null,

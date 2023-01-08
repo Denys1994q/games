@@ -4,10 +4,10 @@ import cn from "classnames";
 import styles from "./FindInput.module.sass";
 
 import { IFindInputProps } from "./FindInput.props";
-import { IArrAllGames } from "../../main/gameCard/Main_gameCard.props";
+import { IArrAllGames } from "../gameCard/gameCard.props";
 
-import GameCard from "../../main/gameCard/Main_gameCard";
-import Select from "../../../layout/inputs/Select";
+import GameCard from "../gameCard/GameCard";
+import Select from "../inputs/Select";
 
 // самий інпут один винести з його функціями в окремий компонент, ще подрібнити
 const FindInput = ({ arrWithAllGames }: IFindInputProps): JSX.Element => {
@@ -67,7 +67,7 @@ const FindInput = ({ arrWithAllGames }: IFindInputProps): JSX.Element => {
             <div className={styles.findSelect}>
                 <Select
                     options={[
-                        '',
+                        "",
                         "shooter",
                         "fighting",
                         "MMOARPG",

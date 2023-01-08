@@ -1,30 +1,11 @@
 import Head from "next/head";
-// import Image from "next/image";
 import styles from "../styles/Home.module.sass";
 
 import Main from "../components/pages/main/Main";
-import { useState } from "react";
 
 import { useHttp } from "../hooks/http.hook";
 
-// export const getServerSideProps = async () => {
-//     const options = {
-//         method: "GET",
-//         headers: {
-//             "X-RapidAPI-Key": "660acd6f64msh16b15f2e86fab3ep160cf2jsn20fce72e0ccb",
-//             "X-RapidAPI-Host": "free-to-play-games-database.p.rapidapi.com",
-//         },
-//     };
-
-//     const res = await fetch("https://free-to-play-games-database.p.rapidapi.com/api/games?platform=pc", options);
-//     const data = await res.json();
-
-//     return {
-//         props: { games: data },
-//     };
-// };
-
-export const getServerSideProps = async () => {
+export const getStaticProps = async () => {
     const { request } = useHttp();
 
     let err = false;

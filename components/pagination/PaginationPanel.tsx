@@ -5,7 +5,7 @@ import { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronLeft, faChevronRight } from "@fortawesome/free-solid-svg-icons";
 
-import { PaginationProps } from "../pagination/Pagination.props";
+import { PaginationProps } from "./Pagination.props";
 
 const PagesPanel = ({
     // рух по створених сторінках: +-, 0 +-

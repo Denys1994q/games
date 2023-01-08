@@ -1,15 +1,15 @@
 import styles from "./Main.module.sass";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useHttp } from "../../../hooks/http.hook";
 
-import { Platform } from "../../layout/btns/Btns.props";
+import { Platform } from "../../btns/Btns.props";
 
-import Btns from "../../layout/btns/Btns";
-import Select from "../../layout/inputs/Select";
-import GameCard from "./gameCard/Main_gameCard";
-import PaginationPanel from "../../common/pagination/PaginationPanel";
-import SortPanel from "./sortPanel/Main_sortPanel";
+import Btns from "../../btns/Btns";
+import Select from "../../inputs/Select";
+import GameCard from "../../gameCard/GameCard";
+import PaginationPanel from "../../pagination/PaginationPanel";
+import SortPanel from "../../sortPanel/SortPanel";
 
 export interface IShowGames {
     platform: Platform;
@@ -22,12 +22,10 @@ interface MainPageProps {
 }
 
 // назвати Main і можливо перенести частину розмітки в новий компонент Main__list
-
-// пререндерені ігри відразу відмальовуються на сторінці.
 const Main = ({ prerenderedGames, prerenderError }: MainPageProps): JSX.Element => {
     const { request } = useHttp();
 
-    const [gamesArr, setGamesArr] = useState<[]>([]);
+    const [gamesArr, setGamesArr] = useState<[]>(prerenderedGames);
     const [activeBtn, setActiveBtn] = useState<number>(0);
     const [loading, setLoading] = useState<boolean>(false);
     const [error, setError] = useState<boolean>(false);
@@ -38,10 +36,6 @@ const Main = ({ prerenderedGames, prerenderError }: MainPageProps): JSX.Element 
     const [divider, setDivider] = useState(5);
     // яка сторінка зараз активна, потрібно для divider
     const [activeIndex, setActiveIndex] = useState(0);
-
-    useEffect(() => {
-        setGamesArr(prerenderedGames);
-    }, []);
 
     // запит до API за списком ігор
     const showGames = ({ platform, index }: IShowGames): void => {
