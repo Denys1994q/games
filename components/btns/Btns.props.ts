@@ -1,4 +1,4 @@
-import '../gameCard/GameCard.props'
+// import '../gameCard/GameCard.props'
 
 export enum Platform {
     PC = "pc",
