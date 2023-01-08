@@ -3,7 +3,7 @@ import styles from "./Main.module.sass";
 import { useState } from "react";
 import { useHttp } from "../../../hooks/http.hook";
 
-import { Platform } from "../../btns/Btns.props";
+import { Platform } from "../../btns/Btns.props"; 
 
 import Btns from "../../btns/Btns";
 import Select from "../../inputs/Select";

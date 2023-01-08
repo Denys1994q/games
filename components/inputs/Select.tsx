@@ -1,4 +1,4 @@
-import styles from "./selects.module.sass";
+import styles from "./Selects.module.sass";
 
 import { ISelect } from "./Select.props";
 
