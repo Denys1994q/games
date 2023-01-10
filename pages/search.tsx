@@ -5,7 +5,7 @@ import { IArrAllGames } from "../components/gameCard/gameCard.props";
 import SliderComponent from "../components/slider/Slider";
 import FindInput from "../components/findInput/FindInput";
 
-export const getServerSideProps = async () => {
+export const getStaticProps = async () => {
     const options = {
         method: "GET",
         headers: {
