@@ -26,7 +26,6 @@ interface ISearchPageProps {
     error: boolean;
 }
 
-// треба це більш на компоненти розбити (інпут в окремий компонент по пошуку) !!!!!!!!
 const Search = ({ gamesFromPrerender }: ISearchPageProps): JSX.Element => {
     let randomNumbersArr: number[] = [];
     const getRandomGames = (arr: object[]) => {
